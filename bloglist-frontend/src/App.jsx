@@ -78,10 +78,10 @@ const App = () => {
     }
   }
 
-  const updateBlog = async (id, updatedBlog) => {
+  const updateBlog = async (id,updatedBlog) => {
     try {
       const returnedBlog = await blogService.update(id, updatedBlog)
-      setBlogs(blogs.map((blog) => (blog.id === id ? { ...returnedBlog, user: updatedBlog.user } : blog)))
+      setBlogs(blogs.map((blog) => (blog.id === id ? { ...returnedBlog, user: updatedBlog.user } : blog)))//
     } catch (error) {
       setErrorMessage('Failed to update blog')
       setTimeout(() => setErrorMessage(''), 3000)
@@ -124,7 +124,7 @@ const App = () => {
   }
   console.log('User logged in, displaying blogs and blog form.')
 
-  const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
+  const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)// Sort blogs by likes
 
   return (
     <div>

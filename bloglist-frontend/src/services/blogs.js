@@ -11,12 +11,6 @@ const setToken = newToken => {
 }
 console.log('Token with bearer word:',token)
 
-// const getAll = async () => {
-//   console.log('Fetching all blogs.');
-//   const response = await axios.get(baseUrl);
-//   //console.log('Blogs fetched:', response.data);
-//   return response.data;
-// };
 const getAll = async () => {
   console.log('Fetching all blogs.')
   const response = await axios.get(baseUrl)
@@ -40,7 +34,6 @@ const create = async (newObject) => {
 };
 
 const update = async (id, updatedObject) => {
-  console.log('Updating blog:', id, updatedObject)
   const config = {
     headers: { Authorization: token },
   };
@@ -57,7 +50,5 @@ const remove = async (id) => {
 
   await axios.delete(`${baseUrl}/${id}`, config);
 };
-
-
 
 export default { getAll, create, setToken, update, remove };
