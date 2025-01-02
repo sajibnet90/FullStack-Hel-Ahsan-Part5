@@ -31,15 +31,21 @@ const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
   return (
     <div style={blogStyle} className="blog">
       <div className="blogTitleAuthor">
-        <span className="blogTitle">Title: {blog.title}</span> <span className="blogAuthor">Author: {blog.author}</span> <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>
+        <span className="blogTitle">Title: {blog.title}</span> 
+        <span className="blogAuthor">Author: {blog.author}</span> 
+        <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>
       </div>
       {visible && (
         <div className="showDetails">
           <p>{blog.url}</p>
           <p>likes {blog.likes} <button onClick={handleLike}>like</button></p>
           <p>{blog.user.name}</p>
-          {/* <p>{blog.user.username}</p> */}
-          <button onClick={handleDelete}>remove</button>
+          {/* <p>{blog.user.id}</p>
+          <p>{user.id}</p> */}
+          {/* Show "remove" button only if the logged-in user owns the blog */}
+          {user.id === blog.user.id && (
+            <button onClick={handleDelete}>remove</button>
+          )}
         </div>
       )}
     </div>

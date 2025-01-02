@@ -39,6 +39,12 @@ app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
+//describe below block, if the environment is test, then we use the testingRouter to handle the requests to the /api/testing endpoint. 
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
+
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

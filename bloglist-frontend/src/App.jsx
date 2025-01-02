@@ -67,10 +67,17 @@ const App = () => {
     console.log('Adding new blog:', blogObject)
     try {
       const returnedBlog = await blogService.create(blogObject)
-      console.log('Blog added successfully:', returnedBlog)
-      setBlogs(blogs.concat(returnedBlog))
+      console.log('Returned Blog added successfully:', returnedBlog)
+      // Re-fetch blogs to ensure data is up-to-date
+        const updatedBlogs = await blogService.getAll();
+        setBlogs(updatedBlogs);
+            //setBlogs(blogs.concat(returnedBlog))
+
       setSuccessMessage(`Blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
-      setTimeout(() => setSuccessMessage(''), 3000)
+      setTimeout(() => setSuccessMessage(''), 5000)
+      // Hide the blog form after successful creation
+      blogFormRef.current.toggleVisibility()
+      
     } catch (error) {
       console.error('Failed to add blog:', error)
       setErrorMessage('Failed to add blog')
@@ -112,7 +119,6 @@ const App = () => {
 
   if (user === null) {
     console.log('No user logged in, showing login form.')
-
     return (
       <div>
         <h2>Log in to application</h2>
@@ -134,7 +140,7 @@ const App = () => {
       <p>
         {user.name} logged in <button onClick={handleLogout}>logout</button>
       </p>
-      <Togglable buttonLabel="create new blog" ref={blogFormRef}>
+      <Togglable buttonLabel="create new blog" ref={blogFormRef}> 
         <BlogForm createBlog={addBlog} />
       </Togglable>
       {sortedBlogs.map((blog) => (

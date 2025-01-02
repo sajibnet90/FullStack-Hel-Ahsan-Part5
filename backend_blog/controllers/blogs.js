@@ -10,8 +10,9 @@ const middleware = require('../utils/middleware')
 // GET all blogs
 blogsRouter.get('/', async (request, response, next) => {
   try {
-      const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 }); // Populate user information
+      const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 }); // Populate user information A value of 1 means "include this field," while a value of 0 means "exclude this field."
       response.json(blogs);
+      console.log('blogs',blogs)
   } catch (error) {
       next(error);
   }
@@ -38,6 +39,7 @@ blogsRouter.post('/',middleware.tokenExtractor, middleware.userExtractor,async (
   try {
    // The user is extracted from the token and available in request.user
    const user = request.user;
+   console.log('user from post method inside blog ',user)
 
    // Validate required fields
    if (!title || !url) {
